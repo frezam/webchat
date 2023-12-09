@@ -1,0 +1,83 @@
+:root {
+    --app-width: 400px;
+    --app-height: 400px;
+    --app-inside-padding: .5rem;
+}
+
+html, body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100svh;
+}
+
+#chat_app {
+    position: relative;
+    width: var(--app-width);
+    height: var(--app-height);
+    margin: 5rem auto;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid black;
+}
+
+#chat_app .header {
+    position: relative;
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, .24) 0 2px 8px;
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+
+/* CONTROLS */
+#chat_app .controls {
+    flex-shrink: 1;
+    padding: var(--app-inside-padding);
+}
+
+#chat_app .controls #form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#chat_app .controls #form label {
+    width: 0;
+    pointer-events: none;
+    opacity: 0;
+}
+
+#chat_app .controls #form > :not(:first-child) {
+    margin-left: .25rem;
+}
+
+#chat_app .controls #form #input {
+    flex-grow: 1;
+    width: 100%;
+}
+
+#chat_app .controls #form #submit {
+    flex-shrink: 1;
+}
+
+/* HISTORY */
+#chat_app .content {
+    flex-grow: 1;
+    overflow-y: scroll;
+    padding: var(--app-inside-padding);
+}
+
+.message-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.message-row.message-system {
+    opacity: 70%;
+}

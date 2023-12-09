@@ -1,6 +1,8 @@
 package utils
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 type Response struct {
 	Error   bool        `json:"error"`

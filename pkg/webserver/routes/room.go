@@ -56,8 +56,15 @@ func HandleRoom(w http.ResponseWriter, r *http.Request) {
 				closed <- true
 				continue
 			}
+			msg := string(message)
+			if msg == "ping" {
+				_ = ws.WriteJSON(chat.DefaultSystemMessage(roomID, currentUser, "Welcome!"))
+				continue
+			}
+
 			room.Queue <- chat.Message{
 				ID:      uuid.New(),
+				Type:    chat.MessageTypeUser,
 				RoomID:  room.ID,
 				User:    currentUser,
 				Content: string(message),
@@ -66,7 +73,13 @@ func HandleRoom(w http.ResponseWriter, r *http.Request) {
 	}()
 
 	go listener.OnMessage(func(message chat.Message) {
-		_ = ws.WriteJSON(message)
+		response := utils.Response{
+			Error:   false,
+			Code:    200,
+			Message: "",
+			Data:    message,
+		}
+		_ = ws.WriteJSON(response)
 	})
 
 	<-closed
